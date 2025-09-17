@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista książek</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+</head>
+<body>
+  <div th:replace="fragments/navbar :: navbar"></div>
+
+  <div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h1>Lista książek</h1>
+      <a class="btn btn-success" th:href="@{/books/add}">Dodaj książkę</a>
+    </div>
+
+    <div class="mb-3">
+      <strong>Ostatnio dodana:</strong>
+      <span th:text="${lastBookTitle} ?: 'brak'"></span>
+    </div>
+
+    <table class="table table-striped">
+      <thead class="table-primary">
+        <tr>
+          <th>ID</th><th>Tytuł</th><th>Autor</th><th>Akcje</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="b : ${books}">
+          <td th:text="${b.id}"></td>
+          <td th:text="${b.title}"></td>
+          <td th:text="${b.author}"></td>
+          <td>
+            <a class="btn btn-sm btn-warning me-1"
+               th:href="@{'/books/edit/' + ${b.id}}">
+              Edytuj
+            </a>
+            <form th:action="@{'/books/delete/' + ${b.id}}"
+                  method="post" class="d-inline">
+              <button class="btn btn-sm btn-danger" type="submit">
+                Usuń
+              </button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <a class="btn btn-link" th:href="@{/}">Powrót do strony głównej</a>
+  </div>
+
+  <!-- WebSocket & Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
+  <script th:src="@{/js/websocket.js}"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    </script>
+</body>
+</html>

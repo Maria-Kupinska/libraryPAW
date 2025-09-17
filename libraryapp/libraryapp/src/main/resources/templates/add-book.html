@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Dodaj książkę</title>
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+</head>
+<body>
+  <!-- Navbar -->
+  <div th:replace="fragments/navbar :: navbar"></div>
+
+  <div class="container mt-4">
+    <h1>Dodaj książkę</h1>
+    <form th:action="@{/books}" th:object="${book}" method="post">
+      <div class="mb-3">
+        <label class="form-label">Tytuł</label>
+        <input class="form-control" th:field="*{title}" />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Autor</label>
+        <input class="form-control" th:field="*{author}" />
+      </div>
+      <button class="btn btn-primary" type="submit">Zapisz</button>
+      <a class="btn btn-link" th:href="@{/books}">Anuluj</a>
+    </form>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    </script>
+</body>
+</html>
